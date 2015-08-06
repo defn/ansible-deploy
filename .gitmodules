@@ -1,0 +1,3 @@
+[submodule "vendor/ansible-modules/deploy-helper"]
+	path = vendor/ansible-modules/deploy-helper
+	url = git@github.com:defn/ansible-deploy-helper
