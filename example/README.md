@@ -10,8 +10,8 @@
 
 # deploy ansible-deploy project to localhost into example/deployed
     cd example
-    env ANSIBLE_SSH_ARGS="-o ForwardAgent=yes" ansible-playbook -i inventory/localhost -e project_root="$(pwd)/deployed" -e project_git_repo=$(git config --local remote.origin.url) site.yml
+    env ANSIBLE_SSH_ARGS="-o ForwardAgent=yes" ansible-playbook -i inventory/localhost -e project_root="$(pwd)/deployed" -e project_git_repo=$(git config --local remote.origin.url) deploy.yml
 
 # using `defn/deploy`
     cd example
-    deploy -i inventory/localhost -e project_root=$(pwd)/deployed site.yml
+    deploy -i inventory/localhost -e project_root=$(pwd)/deployed deploy.yml
