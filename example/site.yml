@@ -1,0 +1,6 @@
+---
+- hosts: all
+  vars:
+    project_deploy_strategy: git
+  roles:
+    - ansible-deploy
