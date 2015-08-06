@@ -11,10 +11,6 @@
 # - you can set the git ref to deploy (can be a branch, tag or commit hash)
 project_version: "master"
 
-# DEPRECATED
-# For git, the .git folder is automatically removed
-#project_remove_git_folder: true
-
 # If you use the "rsync" strategy:
 # - you can set a timeout for the synchonize module
 project_deploy_synchronize_timeout: 30
@@ -45,42 +41,7 @@ project_source_path: "{{ project_root }}/shared/source"
 project_shared_path: "{{ project_root }}/shared"
 
 # Files or folders to remove from the source when deploying
-project_unwanted_items: [ '.git' ]
-
-# DEPRECATED
-# The build_path is used to build your project in, prior to moving it to the release folder.
-# If it exists, this path will be deleted before a new build is started
-# (under the assumption that it contains a failed previous build)
-# project_build_path: "{{ project_root }}/build"
-
-# The project does not assume any package manager, you can enable whichever one(s) you use.
-project_has_composer: false
-project_has_npm: false
-project_has_bower: false
-
-# Default values to run composer install
-project_composer_binary: composer.phar
-project_command_for_composer_install: "{{ project_composer_binary }} install --no-ansi --no-dev --no-interaction --no-progress --optimize-autoloader --no-scripts"
-# When set to true the old vendor dir is copied to the new release to speed up composer install
-project_copy_previous_composer_vendors: false
-project_composer_vendor_path: vendor
-
-# Default values to run npm install
-project_npm_binary: npm
-project_command_for_npm_install: "{{ project_npm_binary }} install --production"
-# When set to true the old modules dir is copied to the new release to speed up npm install
-project_copy_previous_npm_modules: false
-# This *looks* like a setting, but in fact it's not:
-# https://docs.npmjs.com/misc/faq#-node_modules-is-the-name-of-my-deity-s-arch-rival-and-a-forbidden-word-in-my-religion-can-i-configure-npm-to-use-a-different-folder-
-# (preemtively added in case pigs ever learn to fly)
-project_npm_modules_path: node_modules
-
-# Default values to run bower install
-project_bower_binary: bower
-project_command_for_bower_install: "{{ project_bower_binary }} install --production --config.interactive=false"
-# When set to true the old components dir is copied to the new release to speed up bower install
-project_copy_previous_bower_components: false
-project_bower_components_path: components
+project_unwanted_items: [ ]
 
 # All the files to copy to the remote system on deploy. These could contain config files.
 # Example:
@@ -108,23 +69,6 @@ project_templates: []
 #   - path: "/web/uploads"
 #     src: "uploads"
 project_shared_children: []
-
-# The project_environment is a list of environment variables added to the various *_commands
-# Example:
-# project_environment:
-#   SYMFONY_ENV: "prod"
-project_environment: {}
-
-# There are a few moments in this role where arbitrary command(s) can be run. These commands receive
-# the "project_environment" so deploys for different stages can be done by changing this .
-# Example:
-# project_post_build_commands:
-#   - "app/console cache:clear"
-#   - "app/console doctrine:migrations:migrate --no-interaction"
-#   - "app/console assets:install"
-#   - "app/console assetic:dump"
-project_pre_build_commands: []
-project_post_build_commands: []
 
 # At the end of the role, the unfinished_filename is removed and the "current" symlink is set to
 # the release. If you need to perform your own actions before this happens, set "project_finalize"

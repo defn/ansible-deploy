@@ -1,3 +1,7 @@
+fork
+====
+
+
 project_deploy
 ========
 
@@ -105,46 +109,11 @@ Files or folders to remove from the source when deploying:
     project_unwanted_items: [ '.git' ]
 
 
-**DEPRECATED**
 The build_path is used to build your project in, prior to moving it to the release folder.
 If it exists, this path will be deleted before a new build is started
 (under the assumption that it contains a failed previous build)
 
     project_build_path: "{{ project_root }}/build"
-
-The project does not assume any package manager, you can enable whichever one(s) you use:
-
-    project_has_composer: false
-    project_has_npm: false
-    project_has_bower: false
-
-Default values to run composer install:
-
-    project_composer_binary: composer.phar
-    project_command_for_composer_install: "{{ project_composer_binary }} install --no-ansi --no-dev --no-interaction --no-progress --optimize-autoloader --no-scripts"
-
-Default values to run npm install:
-
-    project_npm_binary: npm
-    project_command_for_npm_install: "{{ project_npm_binary }} install --production"
-
-Default values to run bower install:
-
-    project_bower_binary: bower
-    project_command_for_bower_install: "{{ project_bower_binary }} install --production --config.interactive=false"
-
-To speed up composer/npm/bower install it is possible to copy the vendor/node_modules/component directories from the previous release:
-
-    project_copy_previous_composer_vendors: true
-    project_copy_previous_npm_modules: true
-    project_copy_previous_bower_components: true
-
-You can also change the path of the installed vendors (relative to {{ deploy_helper.new_release_path }}):
-
-    project_composer_vendor_path: vendor
-    project_npm_modules_path: node_modules
-    project_bower_components_path: components
-
 
 The project_shared_path is used to set the path for your shared assets. 
 Required: No
@@ -195,21 +164,6 @@ The project_environment is a list of environment variables added to the various 
     project_environment:
       SYMFONY_ENV: "prod"
 
-
-**DEPRECATED, PLEASE USE HOOKS**
-There are a few moments in this role where arbitrary command(s) can be run. These commands receive
-the "project_environment" so deploys for different stages can be done by changing this:
-
-    project_pre_build_commands: []
-    project_post_build_commands: []
-
-**Example:**
-
-    project_post_build_commands:
-      - "app/console cache:clear"
-      - "app/console doctrine:migrations:migrate --no-interaction"
-      - "app/console assets:install"
-      - "app/console assetic:dump"
 
 At the end of the role, the "current" symlink is set to the release. If you need to perform
 your own actions before this happens, set "project_finalize" to false:
