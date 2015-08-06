@@ -30,7 +30,7 @@
 - include: "{{ project_deploy_hook_on_create_build_dir | default(lookup('pipe', 'pwd') ~ '/hooks/example.yml') }}"
 
 - name: Copy files to new build dir
-  command: "cp -pr {{ project_source_path }} {{ deploy_helper.new_release_path }}"
+  command: "rsync -ia {{ project_source_path }} {{ deploy_helper.new_release_path }}"
 
 - name: Remove unwanted files/folders from new release
   file: "path={{ deploy_helper.new_release_path }}/{{ item }} state=absent"
